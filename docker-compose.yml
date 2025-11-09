@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  train:
+    build: .
+    image: pix2pix-seg2photo:latest
+    command: >
+      python src/train_pix2pix.py
+      --train_dir /data/train/train
+      --val_dir   /data/test/test
+      --outdir    /workspace/outputs
+      --batch_size 4
+      --epochs 200
+      --lr 2e-4
+      --lambda_l1 100
+      --save_every 10
+      --eval_every 50
+      --fm_weight 10
+    volumes:
+      - ./outputs:/workspace/outputs
+      - /ABSOLUTE/PATH/TO/data:/data:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]

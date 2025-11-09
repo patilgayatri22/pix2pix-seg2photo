@@ -1,0 +1,30 @@
+# VCS
+.git
+.gitignore
+.gitattributes
+
+# OS/editor
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data & outputs (mount at runtime)
+data/
+outputs/
+**/outputs*/
+**/pred/
+**/samples/
+**/checkpoints/
+*.pt
+
+# Notebooks & examples if not needed inside image
+notebooks/
+examples/

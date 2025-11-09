@@ -1,0 +1,7 @@
+numpy
+pillow
+tqdm
+matplotlib
+torchvision
+torch-fidelity==0.3.0
+scikit-image
