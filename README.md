@@ -12,7 +12,7 @@ This repository mirrors the production layout used in the SPADE variant:
 
 ## Features
 
-- U-Net generator (8 down/8 up) and 70×70 PatchGAN discriminator  
+- U-Net generator (8 down / 8 up) and 70×70 PatchGAN discriminator  
 - Training direction: **seg → photo** (right half → left half)  
 - Losses: BCEWithLogits (adv) + L1 reconstruction (`λ=100` by default)  
 - Optional **feature matching** on D’s intermediate features  
@@ -44,6 +44,8 @@ Images are cropped to `(256, 256)` halves internally.
       ...
 ```
 
+Keep data outside of version control. You will mount it into the container (or point local training to the path).
+
 ---
 
 ## Requirements
@@ -62,7 +64,7 @@ Images are cropped to `(256, 256)` halves internally.
 python -m venv .venv && source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
-# Install torch/torchvision per PyTorch’s instructions for your OS/CUDA
+# Install torch/torchvision as recommended by PyTorch for your OS/CUDA
 
 python src/train_pix2pix.py \
   --train_dir /path/to/data/train/train \
@@ -79,7 +81,7 @@ python src/train_pix2pix.py \
 
 ### B) Docker
 
-Build from repo root:
+Build from the repository root:
 
 ```bash
 docker build -t pix2pix-seg2photo .
@@ -131,6 +133,7 @@ services:
 ```
 
 Run:
+
 ```bash
 docker compose up --build
 ```
@@ -165,6 +168,23 @@ VAL_DIR   = "/content/drive/MyDrive/seg2photo_data/test/test"
 - Validation predictions: `outputs/pred/*.jpg`
 
 Track only `best_model.pt` via Git LFS (or attach to a Release). Keep the repo lean.
+
+---
+
+## Results
+
+Lower is better for FID.
+
+| ID | FID | MiFID |
+|---:|----:|------:|
+| 1  | 50.153942627512414 | 0.13429156 |
+
+CSV:
+
+```csv
+ID,FID,MiFID
+1,50.153942627512414,0.13429156
+```
 
 ---
 
